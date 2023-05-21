@@ -2,6 +2,7 @@ package com.thitiwas.money_tracking;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.thitiwas.money_tracking.app.service.StringUtil;
 import com.thitiwas.money_tracking.app.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -20,6 +21,8 @@ public class Test1 {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private StringUtil stringUtil;
 
     private Gson gson;
 
@@ -29,9 +32,9 @@ public class Test1 {
     }
 
     @Test
-    public void getUserTest() {
+    public void getUserTest() throws Exception {
         String email = "twopee26@gmail.com";
-        String password = "P@ssw0rd";
+        String password = stringUtil.encodePassword("P@ssw0rd");
         var byEmailAndPassword = userService.findByEmailAndPassword(email, password);
         log.debug("result :{}", gson.toJson(byEmailAndPassword));
     }
